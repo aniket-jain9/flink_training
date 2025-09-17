@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flink-jobmanager-new
+spec:
+  type: NodePort            # Changed from ClusterIP to NodePort
+  ports:
+  - name: rpc
+    port: 6123
+    targetPort: 6123
+    nodePort: 30123        # NodePort for RPC
+  - name: blob-server
+    port: 6124
+    targetPort: 6124
+    nodePort: 30124        # NodePort for Blob Server
+  - name: webui
+    port: 8081
+    targetPort: 8081
+    nodePort: 30081        # NodePort for Web UI
+  selector:
+    app: flink
+    component: jobmanager
